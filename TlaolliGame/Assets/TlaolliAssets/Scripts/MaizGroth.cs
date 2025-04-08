@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class MaizGroth : MonoBehaviour
@@ -14,10 +15,20 @@ public class MaizGroth : MonoBehaviour
     public List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
     private AudioManager audioManager;
 
+    public int semillas1=1;
+    public Text semillasCantidad;
+
     void Start()
     {
         audioManager= FindObjectOfType<AudioManager>();
         
+        
+    }
+
+    void Update()
+    {
+        semillasCantidad.text=""+ semillas1.ToString();;
+
     }
 
     IEnumerator GrowSequence(SpriteRenderer sr)
@@ -31,6 +42,8 @@ public class MaizGroth : MonoBehaviour
 
 public void cornInstantiate(Vector3 plantPosition)
 {
+    if(semillas1>0)
+    {
     GameObject cornInstantiate = Instantiate(corn, plantPosition, Quaternion.identity);
     cornGrowthList.Add(cornInstantiate);
     audioManager.cornPlantingSound();
@@ -39,6 +52,11 @@ public void cornInstantiate(Vector3 plantPosition)
 
     spriteRenderers.Add(sr); 
     StartCoroutine(GrowSequence(sr)); // Iniciar crecimiento
+    semillas1--;
+    semillasCantidad.text=""+ semillas1;
+
+    }
+    
 }
 
 public void RemoveFromList(GameObject corn)

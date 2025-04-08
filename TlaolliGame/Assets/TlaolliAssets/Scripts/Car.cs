@@ -33,11 +33,12 @@ public class Car : MonoBehaviour
     {
         if (gameObject.CompareTag("Car"))
         {
-            if(GameController.cornCosechado>0)
+            if(GameController.cornCosechado>=0)
             {
             animation.Play("DirectionWarehouse");
             carretaMoving=true;
             gameController.UpdateCosechadoText();
+            
             
             if(!firstTouchCar)
             {

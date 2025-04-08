@@ -11,9 +11,12 @@ public class GameController : MonoBehaviour
     public Text menuCosechadoText;
     public Text menuWoodT;
     public Text actualChozaText;
+    public Text cornGrilledT;
     public static int cornCosechado = 0; 
     public static int cornSaved= 0;
     public static int wood = 0;
+
+    public int cornAsado= 0;
     public static GameController instance;
     public GameObject woodPrefab;
     public List<GameObject> woodGrowthList = new List<GameObject>(); 
@@ -23,7 +26,7 @@ public class GameController : MonoBehaviour
     private bool menuConstruccionOpen = false;
     private bool openFirstTimeMenu= false;
     private bool firstChozaBuild= false;
-    private bool spawnChoza= false;
+    public bool spawnChoza= false;
     public DialogosFarm dialogosFarm;
     public GameObject ButtonMenuMaterial;
     public GameObject menuMaterial;
@@ -87,10 +90,14 @@ public class GameController : MonoBehaviour
     {
         cosechadoText.text = "" + cornCosechado.ToString();
         menuCosechadoText.text=""+ cornCosechado.ToString();
+       
+        
         if(spawnChoza & carScript.carretaMoving )
         {
-            cornSaved = cornCosechado;
+            cornSaved += cornCosechado;
+            cornCosechado=0;
             actualChozaText= textoChoza.GetComponent<Text>();
+            menuCosechadoText.text=""+ cornCosechado.ToString();
             actualChozaText.text="Actual: "+ cornSaved.ToString();
             carScript.carretaMoving=false;
 
@@ -133,6 +140,8 @@ public class GameController : MonoBehaviour
         
     }
 
+    
+
      public void lastWoodTake()
     {
         if(wood==3)
@@ -147,6 +156,15 @@ public class GameController : MonoBehaviour
             }
         }
     }
+
+     public void UpdateCornGrilledText()
+    {
+        
+       cornGrilledT.text="" + cornAsado.ToString();
+        
+    }
+
+    
 
     public void openMenuMaterial()
     {
@@ -189,13 +207,15 @@ public class GameController : MonoBehaviour
 
     public void chozaBuilder()
     {
-        Vector2 positionChoza= new Vector2(-1.8f,4.22f);
-        Instantiate(choza,positionChoza,Quaternion.identity);
-        wood -= 3;
-        UpdateWoodText();
-        textoChoza= GameObject.Find("TextActualCapacity");
-        textoChoza.GetComponent<Text>();
-        spawnChoza= true;
+        if(wood>=3)
+        {
+            Vector2 positionChoza= new Vector2(-1.8f,4.22f);
+            Instantiate(choza,positionChoza,Quaternion.identity);
+            wood -= 3;
+            UpdateWoodText();
+            textoChoza= GameObject.Find("TextActualCapacity");
+            textoChoza.GetComponent<Text>();
+            spawnChoza= true;
         if(!firstChozaBuild)
         {
             dialogosFarm.contador=5;
@@ -203,6 +223,9 @@ public class GameController : MonoBehaviour
             firstChozaBuild= true;
             
         }
+
+        }
+      
         
     }
 

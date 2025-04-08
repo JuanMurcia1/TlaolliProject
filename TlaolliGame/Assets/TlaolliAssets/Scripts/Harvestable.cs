@@ -22,6 +22,7 @@ public class Harvestable : MonoBehaviour
         // Verificar si el objeto tiene el tag "Semilla"
         if (gameObject.CompareTag("Semilla"))
         {
+            maizGrothScript.semillas1+=2;
             gameController.boxCorns.SetActive(true);
 
             audioManager.cornHarvest();
@@ -33,10 +34,9 @@ public class Harvestable : MonoBehaviour
 
             // Actualizar el texto de semillas cosechadas
             GameController.instance.UpdateCosechadoText();  // Actualiza el texto en la UI
-
-            // Eliminar de las listas y destruir el objeto
             maizGrothScript.RemoveFromList(gameObject);
-            Destroy(gameObject); // Elimina el maíz del juego
+            Destroy(gameObject); 
+
 
            // storageBarSprite.AddStorage(1f);
            // Debug.Log(storageBarSprite.currentStorage);

@@ -20,6 +20,12 @@ public class FogataController : MonoBehaviour
     public GameObject panelAsarCorn;
 
     public Text cornToAsarText;
+    public Text letreroPanelCornToAsar;
+    public GameController gameController;
+    public DialogosFarm dialogosFarm;
+
+    private bool firstCornAsado = false;
+    private bool noHaySuficientes= false;
 
     void Start()
     {
@@ -47,11 +53,12 @@ public class FogataController : MonoBehaviour
     public void ClosePanelAsarCorn()
     {
         panelAsarCorn.SetActive(false);
-        cornToAsar=0;
+        cornToAsarText.text ="0";
     }
 
     public void plusCorn()
     {
+       
         cornToAsar++;
         cornToAsarText.text= ""+ cornToAsar.ToString();
     }
@@ -62,7 +69,44 @@ public class FogataController : MonoBehaviour
         cornToAsarText.text= ""+ cornToAsar.ToString();
     }
 
-    
+    public void checkAsar()
+    {
+        if(cornToAsar<=GameController.cornSaved&& cornToAsar>0)
+        {
+        gameController.cornAsado+= cornToAsar;
+        GameController.cornSaved-=cornToAsar;
+
+        if(gameController.spawnChoza)
+        {
+           // gameController.actualChozaText= textoChoza.GetComponent<Text>();
+            gameController.actualChozaText.text="Actual: "+ GameController.cornSaved.ToString();
+
+        }
+        gameController.UpdateCornGrilledText();
+        panelAsarCorn.SetActive(false);
+        cornToAsarText.text ="0";
+        gameController.UpdateCosechadoText();
+        noHaySuficientes=false;
+        cornToAsar=0;
+        }else
+        {
+            letreroPanelCornToAsar.text= "No hay suficientes";
+            noHaySuficientes=true;
+            StartCoroutine(messageInitialPanelCornGrilled());
+            
+            
+        }
+        if(!firstCornAsado&& !noHaySuficientes)
+        {
+            dialogosFarm.contador=8;
+            dialogosFarm.SecuenciaDialogos();
+            firstCornAsado=true;
+        }
+        
+        
+
+        
+    }
 
     IEnumerator GrowSequenceFogata(SpriteRenderer sr)
     {
@@ -97,5 +141,14 @@ public class FogataController : MonoBehaviour
         }
 
         light2D.pointLightOuterRadius = current;
+    }
+
+    IEnumerator messageInitialPanelCornGrilled()
+    {
+         yield return new WaitForSeconds(2);
+        letreroPanelCornToAsar.text="¿Cuántas mazorcas quieres asar?";
+       
+       
+        
     }
 }

@@ -10,6 +10,8 @@ public class DialogosFarm : MonoBehaviour
     public AnimationsMain animationsMain;
     private GameController gameController;
 
+    public GameObject buttonAvanza;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class DialogosFarm : MonoBehaviour
             dialogos.text="Interactua con la flecha  de abajo para ver las semillas disponibles.";
         }else if(contador==1)
         {
-            dialogos.text="Arrastra la semilla y Cuando termines de plantar cierra el menú de semillas para poder cosechar.";
+            dialogos.text="Arrastra la semilla y cuando termines de plantar cierra el menú de semillas para poder cosechar.";
             StartCoroutine(animationsMain.fadedUpPanel());
         }else if(contador==2)
         {
@@ -67,14 +69,49 @@ public class DialogosFarm : MonoBehaviour
         }else if(contador==7)
         {
             dialogos.text="¡Perfecto!, una linda y cálidad fogata, esto nos permitirá asar las mazorcas para poder venderlas, presiona encima de la fogata.";
+        }else if(contador==8)
+        {
+            dialogos.text="El número de mazorcas asadas se verán en tu baul.";
+            buttonAvanza.SetActive(true);
+
+        }else if(contador==9)
+        {
+            dialogos.text="Cuando coseches, en el baul podrás ver la cantidad, pero solo cuando almacenes la choza mostrará lo que almacenaste.";
         }
+        else if(contador==10)
+        {
+            dialogos.text="Con estos elementos básicos podrás empezar por ahora, ¡Recuerda!, solo puedes asar si has almacenano en tu choza el maiz. Presiona Avanza ";
+        }else if(contador==11)
+        {
+            dialogos.text="Otro tip: mientras no guardes mediante la carreta tu maiz, podrá ser robado por algunos animales, ten cuidado en las noches.";
+            
+        }else if(contador==12)
+        {
+            dialogos.text="Solo la choza te mostrará el maiz real almacenado después de guardarlo, aunque en el baul veas más, no significa que las hayas guardado, asegurate de llevarlo a la choza todo.";
+        }else if(contador==13)
+        {
+            dialogos.text=" Por cada semilla que plantes y coseches de esta clase, te brindará dos semillas para volver a plantar.";
+        }
+        else if(contador==14)
+        {
+            dialogos.text="Y ahora, como misión inicial, debes cultivar, cosechar y asar 10 mazorcas, cuando lo consigas, llegará el mercader.";
+            buttonAvanza.SetActive(false);
+
+        }
+        
+    }
+
+    public void nextDialogo()
+    {
+        contador++;
+        SecuenciaDialogos();
     }
 
 
     private IEnumerator warningC5()
     {
         yield return new WaitForSeconds(6);
-        dialogos.text= "Pero cuidado... no dejes mucho los cultivos afuera, hay animales cerca, interactua con la carreta para guardar tus cultivos";
+        dialogos.text= "Y cuidado... no dejes mucho los cultivos afuera, hay animales cerca, interactua con la carreta para guardar tus cultivos";
         gameController.car.SetActive(true);  
     }
 }
