@@ -218,8 +218,7 @@ public class GameController : MonoBehaviour
 
     public void spawnFogata()
     {
-        Vector2 positionSpawnFogata= new Vector2(1.17f,3.65f);
-        Instantiate(fogata,positionSpawnFogata,Quaternion.identity);
+        fogata.SetActive(true);
         buttonFogataSpawn.interactable= false;
         dialogosFarm.contador=7;
         dialogosFarm.SecuenciaDialogos();

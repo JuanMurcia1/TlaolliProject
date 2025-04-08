@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class FogataController : MonoBehaviour
 {
@@ -14,12 +15,15 @@ public class FogataController : MonoBehaviour
     public float maxRadius = 3f;
     public float speed = 1f;
     private bool increasing = true;
+    public int cornToAsar= 0;
 
     public GameObject panelAsarCorn;
 
+    public Text cornToAsarText;
+
     void Start()
     {
-        fogatinha = GameObject.Find("Fogata(Clone)");
+        fogatinha = GameObject.Find("Fogata");
         light2D = GetComponentInChildren<Light2D>();
         spriteFogata = fogatinha.GetComponent<SpriteRenderer>();
         InvokeRepeating("PlayGrowSequenceFogata", 1f, 1.5f);
@@ -43,7 +47,22 @@ public class FogataController : MonoBehaviour
     public void ClosePanelAsarCorn()
     {
         panelAsarCorn.SetActive(false);
+        cornToAsar=0;
     }
+
+    public void plusCorn()
+    {
+        cornToAsar++;
+        cornToAsarText.text= ""+ cornToAsar.ToString();
+    }
+
+     public void minusCorn()
+    {
+        cornToAsar--;
+        cornToAsarText.text= ""+ cornToAsar.ToString();
+    }
+
+    
 
     IEnumerator GrowSequenceFogata(SpriteRenderer sr)
     {
