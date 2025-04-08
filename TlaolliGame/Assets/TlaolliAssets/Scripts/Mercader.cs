@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mercader : MonoBehaviour
 {
     public GameObject panelMercader;
     public GameObject panelVenta;
+    public GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,13 @@ public class Mercader : MonoBehaviour
     public void closePanelVenta()
     {
         panelVenta.SetActive(false);
+    }
+
+    public void vender()
+    {
+        GameController.granitosDeOro=100;
+        gameController.granitoDeOROT.text="" +GameController.granitosDeOro.ToString();
+
     }
 
 

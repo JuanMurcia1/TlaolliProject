@@ -356,7 +356,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &41054528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -484,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelMercader: {fileID: 436799034}
   panelVenta: {fileID: 1541656535}
+  gameController: {fileID: 1581518591}
 --- !u!1 &127411577
 GameObject:
   m_ObjectHideFlags: 0
@@ -5181,7 +5182,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1527409939}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 41054531}
+        m_TargetAssemblyTypeName: Mercader, Assembly-CSharp
+        m_MethodName: vender
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1527409939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5619,6 +5632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d032c907bfd22c449b5660bd526924e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  granitoDeOROT: {fileID: 860252441}
   cosechadoText: {fileID: 612330151}
   woodT: {fileID: 1696428564}
   menuCosechadoText: {fileID: 407917148}

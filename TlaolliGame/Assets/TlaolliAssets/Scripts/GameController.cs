@@ -6,6 +6,7 @@ using UnityEngine.Rendering.Universal;
 
 public class GameController : MonoBehaviour
 {
+    public Text granitoDeOROT;
     public Text cosechadoText; 
     public Text woodT;
     public Text menuCosechadoText;
@@ -15,6 +16,7 @@ public class GameController : MonoBehaviour
     public static int cornCosechado = 0; 
     public static int cornSaved= 0;
     public static int wood = 0;
+    public static int granitosDeOro=0;
 
     public int cornAsado= 0;
     public static GameController instance;
