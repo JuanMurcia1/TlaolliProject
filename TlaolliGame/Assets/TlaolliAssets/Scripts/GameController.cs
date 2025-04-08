@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public Car carScript;
 
     public Button buttonFogataSpawn;
+    public GameObject mercader;
 
 
 
@@ -245,6 +246,13 @@ public class GameController : MonoBehaviour
         buttonFogataSpawn.interactable= false;
         dialogosFarm.contador=7;
         dialogosFarm.SecuenciaDialogos();
+    }
+
+    public IEnumerator mercaderDrop()
+    {
+        yield return new WaitForSeconds(3);
+        mercader.SetActive(true);
+
     }
 
 }

@@ -73,21 +73,21 @@ public class FogataController : MonoBehaviour
     {
         if(cornToAsar<=GameController.cornSaved&& cornToAsar>0)
         {
-        gameController.cornAsado+= cornToAsar;
-        GameController.cornSaved-=cornToAsar;
+            gameController.cornAsado+= cornToAsar;
+            GameController.cornSaved-=cornToAsar;
 
-        if(gameController.spawnChoza)
-        {
-           // gameController.actualChozaText= textoChoza.GetComponent<Text>();
-            gameController.actualChozaText.text="Actual: "+ GameController.cornSaved.ToString();
+            if(gameController.spawnChoza)
+            {
+            // gameController.actualChozaText= textoChoza.GetComponent<Text>();
+                gameController.actualChozaText.text="Actual: "+ GameController.cornSaved.ToString();
 
-        }
-        gameController.UpdateCornGrilledText();
-        panelAsarCorn.SetActive(false);
-        cornToAsarText.text ="0";
-        gameController.UpdateCosechadoText();
-        noHaySuficientes=false;
-        cornToAsar=0;
+            }
+            gameController.UpdateCornGrilledText();
+            panelAsarCorn.SetActive(false);
+            cornToAsarText.text ="0";
+            gameController.UpdateCosechadoText();
+            noHaySuficientes=false;
+            cornToAsar=0;
         }else
         {
             letreroPanelCornToAsar.text= "No hay suficientes";
@@ -101,6 +101,12 @@ public class FogataController : MonoBehaviour
             dialogosFarm.contador=8;
             dialogosFarm.SecuenciaDialogos();
             firstCornAsado=true;
+        }
+
+        if (gameController.cornAsado>=10)
+        {
+            dialogosFarm.contador=15;
+            dialogosFarm.SecuenciaDialogos();
         }
         
         

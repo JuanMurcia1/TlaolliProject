@@ -11,6 +11,7 @@ TagManager:
   - Car
   - StorageHouse
   - PlantingZone
+  - Mercader
   layers:
   - Default
   - TransparentFX

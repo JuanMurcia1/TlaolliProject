@@ -97,6 +97,14 @@ public class DialogosFarm : MonoBehaviour
             dialogos.text="Y ahora, como misión inicial, debes cultivar, cosechar y asar 10 mazorcas, cuando lo consigas, llegará el mercader.";
             buttonAvanza.SetActive(false);
 
+        }else if(contador==15)
+        {
+            dialogos.text="Prepárate, ya viene el mercader";
+            gameController.StartCoroutine(gameController.mercaderDrop());
+        }else if(contador==16)
+        {
+            dialogos.text="Interactua con el mercader para ver lo que ofrece.";
+            buttonAvanza.SetActive(false);  
         }
         
     }
