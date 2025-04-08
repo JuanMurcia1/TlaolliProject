@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Maiz
+  - Semilla
+  - Seed
+  - Log
+  - Car
+  - StorageHouse
+  - PlantingZone
   layers:
   - Default
   - TransparentFX
@@ -41,4 +47,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enviroment
+    uniqueID: 3720688101
+    locked: 0
+  - name: HUD
+    uniqueID: 407081705
     locked: 0

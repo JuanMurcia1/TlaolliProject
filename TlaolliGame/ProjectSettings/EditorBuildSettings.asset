@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/TlaolliAssets/Scenes/Menu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/MainGame.unity
+    path: Assets/TlaolliAssets/Scenes/MainGame.unity
     guid: 27c4b2f51de098446bf84b9220e04b15
+  - enabled: 1
+    path: Assets/TlaolliAssets/Scenes/Farm.unity
+    guid: 668937a02fecaa5438efbde3f664d891
   m_configObjects: {}
