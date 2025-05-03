@@ -17,8 +17,9 @@ public class GameController : MonoBehaviour
     public static int cornSaved= 0;
     public static int wood = 0;
     public static int granitosDeOro=0;
-
     public int cornAsado= 0;
+    public int level= 0;
+    public int actualExperience= 0;
     public static GameController instance;
     public GameObject woodPrefab;
     public List<GameObject> woodGrowthList = new List<GameObject>(); 
@@ -214,7 +215,7 @@ public class GameController : MonoBehaviour
         {
             Vector2 positionChoza= new Vector2(-1.8f,4.22f);
             Instantiate(choza,positionChoza,Quaternion.identity);
-            wood -= 3;
+            wood -= 2;
             UpdateWoodText();
             textoChoza= GameObject.Find("TextActualCapacity");
             textoChoza.GetComponent<Text>();
@@ -244,10 +245,13 @@ public class GameController : MonoBehaviour
 
     public void spawnFogata()
     {
+        wood -= 1;
+        UpdateWoodText();
         fogata.SetActive(true);
         buttonFogataSpawn.interactable= false;
         dialogosFarm.contador=7;
         dialogosFarm.SecuenciaDialogos();
+        
     }
 
     public IEnumerator mercaderDrop()

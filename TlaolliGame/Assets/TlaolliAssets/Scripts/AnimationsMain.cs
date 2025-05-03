@@ -85,6 +85,15 @@ public class AnimationsMain : MonoBehaviour
 
     }
 
+     public void fadedUpPanelinstant()
+    {
+        
+        panelConversation.Play("PanelTransparencyOn");
+        textConversation.Play("TextTransparencyOn");
+
+
+    }
+
     public IEnumerator MoveOffUiTexts()
     {
         yield return new WaitForSeconds(3);
@@ -92,8 +101,4 @@ public class AnimationsMain : MonoBehaviour
         UiTextWood.Play("TextFadedWood");
     }
 
-    // public void warePanel()
-    // {
-    //     wareHousePanel.Play();
-    // }
 }

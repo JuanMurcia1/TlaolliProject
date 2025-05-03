@@ -8,6 +8,10 @@ public class Mercader : MonoBehaviour
     public GameObject panelMercader;
     public GameObject panelVenta;
     public GameController gameController;
+    public bool venderFirstTime= false;
+    public DialogosFarm dialogosFarm;
+
+    private FogataController fogataController;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,8 +49,24 @@ public class Mercader : MonoBehaviour
 
     public void vender()
     {
+        fogataController= FindObjectOfType<FogataController>();
+        if(!venderFirstTime){
         GameController.granitosDeOro=100;
         gameController.granitoDeOROT.text="" +GameController.granitosDeOro.ToString();
+        venderFirstTime= true;
+        dialogosFarm.contador= 17;
+        dialogosFarm.SecuenciaDialogos();
+        gameController.cornAsado -= gameController.cornAsado;
+        gameController.UpdateCornGrilledText();
+        
+        }else
+        {
+            gameController.cornAsado -= gameController.cornAsado;
+            gameController.UpdateCornGrilledText();
+        }
+
+
+        
 
     }
 

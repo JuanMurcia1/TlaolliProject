@@ -12,12 +12,15 @@ public class Car : MonoBehaviour
 
      public bool carretaMoving = false;
 
+     public BoxCollider2D boxCollider2D;
+
     // Start is called before the first frame update
     void Start()
     {
        gameController= FindObjectOfType<GameController>();
         animation=GetComponent<Animation>();
         dialogosFarm=FindObjectOfType<DialogosFarm>();
+
         
     }
 
@@ -38,6 +41,7 @@ public class Car : MonoBehaviour
             animation.Play("DirectionWarehouse");
             carretaMoving=true;
             gameController.UpdateCosechadoText();
+            boxCollider2D.enabled= false;
             
             
             if(!firstTouchCar)
@@ -55,10 +59,20 @@ public class Car : MonoBehaviour
     }
 
     private IEnumerator returnCar(int wait)
+{
+    yield return new WaitForSeconds(wait);
+
+    gameController.boxCorns.SetActive(false);
+    animation.Play("DirectionZonePlanting");
+
+  
+    while (animation.IsPlaying("DirectionZonePlanting"))
     {
-        yield return new WaitForSeconds(wait);
-        gameController.boxCorns.SetActive(false);
-        animation.Play("DirectionZonePlanting");
-        gameController.boxCorns.SetActive(false);
+        yield return null; 
+
     }
+    boxCollider2D.enabled = true;
+
+}
+
 }

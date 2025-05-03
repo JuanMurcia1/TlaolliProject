@@ -9,6 +9,8 @@ public class AudioManager : MonoBehaviour
     public AudioSource managerAudio;
     public AudioClip LogPick;
     public AudioClip buttonClick;
+
+    public AudioClip raven;
     
    
     public void cornHarvest()
@@ -34,6 +36,14 @@ public class AudioManager : MonoBehaviour
         managerAudio.clip=  buttonClick;
         managerAudio.loop= false;
         managerAudio.Play();
+    }
+
+    public void ravenSound()
+    {
+        managerAudio.clip=  raven;
+        managerAudio.loop= false;
+        managerAudio.Play();
+    
     }
 
 

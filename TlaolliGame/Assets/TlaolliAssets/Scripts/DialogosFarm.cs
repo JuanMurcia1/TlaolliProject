@@ -9,7 +9,7 @@ public class DialogosFarm : MonoBehaviour
     public int contador;
     public AnimationsMain animationsMain;
     private GameController gameController;
-
+    private DayNightController dayNightController;
     public GameObject buttonAvanza;
 
     // Start is called before the first frame update
@@ -19,9 +19,7 @@ public class DialogosFarm : MonoBehaviour
         animationsMain.panelDialogos();
         SecuenciaDialogos();
         gameController= FindObjectOfType<GameController>();
-
-
-        
+        dayNightController= FindObjectOfType<DayNightController>();
     }
 
     // Update is called once per frame
@@ -76,18 +74,18 @@ public class DialogosFarm : MonoBehaviour
 
         }else if(contador==9)
         {
-            dialogos.text="Cuando coseches, en el baul podrás ver la cantidad, pero solo cuando almacenes la choza mostrará lo que almacenaste.";
+            dialogos.text="Cuando coseches un maiz, en el baul podrás ver la cantidad, pero solo cuando interactues con la carreta, la choza mostrará lo que almacenaste.";
         }
         else if(contador==10)
         {
-            dialogos.text="Con estos elementos básicos podrás empezar por ahora, ¡Recuerda!, solo puedes asar si has almacenano en tu choza el maiz. Presiona Avanza ";
+            dialogos.text="¡Recuerda!, solo puedes asar si has almacenano maiz en tu choza. Presiona Avanza ";
         }else if(contador==11)
         {
-            dialogos.text="Otro tip: mientras no guardes mediante la carreta tu maiz, podrá ser robado por algunos animales, ten cuidado en las noches.";
+            dialogos.text="Si no almacenas tu maiz, podrá ser robado por algunos animales, ten cuidado en las noches.";
             
         }else if(contador==12)
         {
-            dialogos.text="Solo la choza te mostrará el maiz real almacenado después de guardarlo, aunque en el baul veas más, no significa que las hayas guardado, asegurate de llevarlo a la choza todo.";
+            dialogos.text="La choza te mostrará el maiz real almacenado después de guardarlo, aunque en el baul veas mazorcas, no significa que las hayas guardado, asegurate de llevarlo todo a la choza.";
         }else if(contador==13)
         {
             dialogos.text=" Por cada semilla que plantes y coseches de esta clase, te brindará dos semillas para volver a plantar.";
@@ -105,6 +103,28 @@ public class DialogosFarm : MonoBehaviour
         {
             dialogos.text="Interactua con el mercader para ver lo que ofrece.";
             buttonAvanza.SetActive(false);  
+        }else if(contador==17)
+        {
+            dialogos.text="El mercader vendrá eventualmente y arriba a la derecha podrás ver tus recursos.";
+            buttonAvanza.SetActive(true); 
+            gameController.mercader.SetActive(false);
+            
+            
+        }else if(contador==18)
+        {
+            dialogos.text="Muy bien, parece que se está haciendo de noche, ten cuidado, no solo tu aldea necesita el maiz.";
+            StartCoroutine(dayNightController.CycleDayNight());
+            buttonAvanza.SetActive(false);
+
+        }else if(contador== 19)
+        {
+            dialogos.text="Reune recursos y ten cuidado con las amenazas, pronto tu comunidad crecerá.";
+            buttonAvanza.SetActive(true);
+        }else if(contador==20)
+        {
+            dialogos.text="Ahora podrás ver el nivel de tu aldea, y los puntos de experiencia, cosecha un poco más y reune madera, seguramente alguien llegará a tu aldea.";
+            animationsMain.fadedUpPanelinstant();
+            buttonAvanza.SetActive(false);
         }
         
     }

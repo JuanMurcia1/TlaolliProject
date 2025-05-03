@@ -27,6 +27,8 @@ public class FogataController : MonoBehaviour
     private bool firstCornAsado = false;
     private bool noHaySuficientes= false;
 
+    private bool firstSellCornGril= false;
+
     void Start()
     {
         fogatinha = GameObject.Find("Fogata");
@@ -103,10 +105,11 @@ public class FogataController : MonoBehaviour
             firstCornAsado=true;
         }
 
-        if (gameController.cornAsado>=10)
+        if (gameController.cornAsado>=10 & !firstSellCornGril)
         {
             dialogosFarm.contador=15;
             dialogosFarm.SecuenciaDialogos();
+            firstSellCornGril= true;
         }
         
         
