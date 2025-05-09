@@ -46,7 +46,7 @@ public class DayNightController : MonoBehaviour
                 StartCoroutine(animalsController.spawnerAnimal());
 
             }
-            yield return new WaitForSeconds(100f);
+            yield return new WaitForSeconds(60f);
         }
     }
 }

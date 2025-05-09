@@ -19,6 +19,9 @@ public class HarveLog : MonoBehaviour
             audioManager.logPickSound();
             GameController.wood++; 
             GameController.instance.UpdateWoodText(); 
+            GameController.instance.actualExperience++;
+            GameController.instance.experienceSum();
+
             Destroy(gameObject);
         }
 

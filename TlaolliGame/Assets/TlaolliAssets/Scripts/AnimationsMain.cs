@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationsMain : MonoBehaviour
 {
     public Animation zoneGreen;
-    private bool isInventoryOpen = false;
+    public bool isInventoryOpen = false;
     public Animation uiInventory;
     public Animation imageUI;
     public Animation textConversation;

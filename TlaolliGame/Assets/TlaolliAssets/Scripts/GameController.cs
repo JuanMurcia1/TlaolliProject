@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
     public Text menuWoodT;
     public Text actualChozaText;
     public Text cornGrilledT;
+    public Text actuaLevelText;
+    public Text actualExperienceText;
     public static int cornCosechado = 0; 
     public static int cornSaved= 0;
     public static int wood = 0;
@@ -30,6 +32,8 @@ public class GameController : MonoBehaviour
     private bool openFirstTimeMenu= false;
     private bool firstChozaBuild= false;
     public bool spawnChoza= false;
+
+    public bool nextLvl= false;
     public DialogosFarm dialogosFarm;
     public GameObject ButtonMenuMaterial;
     public GameObject menuMaterial;
@@ -44,12 +48,19 @@ public class GameController : MonoBehaviour
 
     public GameObject fogata;
     public GameObject fogataButton;
+    public GameObject chozaGenerateButton;
 
     public Car carScript;
 
     public Button buttonFogataSpawn;
     public GameObject mercader;
+    private TreeSpawner treeSpawner;
 
+    public GameObject UIlevelBar;
+
+    public GameObject congratsLvl;
+
+    public GameObject rain;
 
 
     void Awake()
@@ -68,8 +79,13 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        level=1;
         UpdateCosechadoText();
         dialogosFarm = FindObjectOfType<DialogosFarm>();
+        treeSpawner= FindObjectOfType<TreeSpawner>();
+        actuaLevelText.text="Nivel " + level.ToString();
+        actualExperienceText.text= "Xp: " + actualExperience.ToString();
+        
         
         
     }
@@ -80,6 +96,11 @@ public class GameController : MonoBehaviour
         lastWoodTake();
         
         
+    }
+
+    void LateUpdate()
+    {
+        nextLevel();
     }
 
 
@@ -128,14 +149,38 @@ public class GameController : MonoBehaviour
         }
     }
 
+
+    public void woodGenerateAlways()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            woodSpawner();
+
+        }
+
+    }
+
     // CONTROLER INSTANTIATE WOOD AND TEXT
 
     public void woodSpawner()
     {
+        if(dialogosFarm.contador==2)
+        {
         float rangeX = Random.Range(-3.0f,1.21f);
         float rangeY = Random.Range(-3.89f,-2.19f);
         Vector2 positionSpawner= new Vector2(rangeX,rangeY);
         GameObject woodPP= Instantiate(woodPrefab,positionSpawner,Quaternion.identity);
+
+        }else if(dialogosFarm.contador>2)
+        {
+        float rangeX = Random.Range(-6.41f,-2.96f);
+        float rangeY = Random.Range(5.43f,-5.31f);
+        Vector2 positionSpawner= new Vector2(rangeX,rangeY);
+        GameObject woodPP= Instantiate(woodPrefab,treeSpawner.spawnPosition,Quaternion.identity);
+        }
+      
+
+
     }
     public void UpdateWoodText()
     {
@@ -233,7 +278,6 @@ public class GameController : MonoBehaviour
         
     }
 
- 
 
     public IEnumerator  UiTextOff()
     {
@@ -260,5 +304,54 @@ public class GameController : MonoBehaviour
         mercader.SetActive(true);
 
     }
+
+    public void nextLevel()
+    {
+       
+        if(actualExperience>35 && level==1)
+        {
+            nextLvl=true;
+            level=2;
+            actuaLevelText.text="Nivel " + level.ToString();
+            dialogosFarm.contador=21;
+            dialogosFarm.SecuenciaDialogos();
+            if(nextLvl==true)
+            {
+                StartCoroutine(lvlFalse());
+
+            }
+            
+
+
+        }else if(actualExperience> 100 && level==2)
+        {
+            nextLvl= true;
+            level=3;
+            actuaLevelText.text="Nivel " + level.ToString();
+            if(nextLvl==true)
+            {
+                StartCoroutine(lvlFalse());
+
+            }
+
+
+        }
+
+    }
+
+    public void experienceSum()
+    {
+        actualExperienceText.text="Xp:" + actualExperience.ToString();
+    }
+
+    public IEnumerator lvlFalse()
+    {
+        congratsLvl.SetActive(true);
+        yield return new WaitForSeconds(2);
+        nextLvl= false;
+        congratsLvl.SetActive(false);
+    }
+
+
 
 }

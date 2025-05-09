@@ -29,6 +29,10 @@ public class Harvestable : MonoBehaviour
             // Actualizar el texto de semillas cosechadas
             GameController.instance.UpdateCosechadoText();  // Actualiza el texto en la UI
             maizGrothScript.RemoveFromList(gameObject);
+            GameController.instance.actualExperience++;
+            GameController.instance.experienceSum();
+            
+
             Destroy(gameObject); 
         }
 

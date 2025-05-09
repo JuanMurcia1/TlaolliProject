@@ -9,6 +9,13 @@ public class CameraDragController : MonoBehaviour
 
     public Vector2 minPosition = new Vector2(-20, -10); // ajusta según tu mapa
     public Vector2 maxPosition = new Vector2(20, 10);    // ajusta según tu mapa
+    
+    private AnimationsMain animationsMain;
+
+    void Start()
+    {
+        animationsMain= FindObjectOfType<AnimationsMain>();
+    }
 
     void Update()
     {
@@ -28,7 +35,7 @@ public class CameraDragController : MonoBehaviour
             lastPosition = Input.mousePosition;
             isDragging = true;
         }
-        else if (Input.GetMouseButton(0) && isDragging)
+        else if (Input.GetMouseButton(0) && isDragging && animationsMain.isInventoryOpen==false)
         {
             Vector3 delta = Input.mousePosition - lastPosition;
             Vector3 move = new Vector3(-delta.x, 0, -delta.y) * dragSpeed * Time.deltaTime;

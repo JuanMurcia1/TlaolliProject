@@ -12,11 +12,12 @@ TagManager:
   - StorageHouse
   - PlantingZone
   - Mercader
+  - Refuge
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Buildings
   - Water
   - UI
   - 

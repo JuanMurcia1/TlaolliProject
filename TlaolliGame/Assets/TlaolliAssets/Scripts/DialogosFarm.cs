@@ -12,6 +12,8 @@ public class DialogosFarm : MonoBehaviour
     private DayNightController dayNightController;
     public GameObject buttonAvanza;
 
+    private TreeSpawner treeSpawner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class DialogosFarm : MonoBehaviour
         SecuenciaDialogos();
         gameController= FindObjectOfType<GameController>();
         dayNightController= FindObjectOfType<DayNightController>();
+        treeSpawner= FindObjectOfType<TreeSpawner>();
     }
 
     // Update is called once per frame
@@ -118,13 +121,22 @@ public class DialogosFarm : MonoBehaviour
 
         }else if(contador== 19)
         {
-            dialogos.text="Reune recursos y ten cuidado con las amenazas, pronto tu comunidad crecerá.";
+            dialogos.text="Reune recursos y ten cuidado con las amenazas, pronto tu comunidad crecerá, hay árboles por la zona, reune madera cuando estos se caigan.";
             buttonAvanza.SetActive(true);
         }else if(contador==20)
         {
             dialogos.text="Ahora podrás ver el nivel de tu aldea, y los puntos de experiencia, cosecha un poco más y reune madera, seguramente alguien llegará a tu aldea.";
-            animationsMain.fadedUpPanelinstant();
+            
+            StartCoroutine(animationsMain.fadedUpPanel());
             buttonAvanza.SetActive(false);
+            StartCoroutine(treeSpawner.SpawnTreesLoop());
+            gameController.UIlevelBar.SetActive(true);  
+        }else if(contador==21)
+        {
+            animationsMain.panelDialogos();
+            dialogos.text="Perfecto, has alcanzado el nivel 2, y tal parece que nos visita alguien buscando refugio, rápido, construye una choza para tu visitante.";
+            StartCoroutine(animationsMain.fadedUpPanel());
+            gameController.chozaGenerateButton.SetActive(true);
         }
         
     }
