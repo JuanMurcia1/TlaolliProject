@@ -92,8 +92,8 @@ public class GameController : MonoBehaviour
         UpdateCosechadoText();
         dialogosFarm = FindObjectOfType<DialogosFarm>();
         treeSpawner= FindObjectOfType<TreeSpawner>();
-        actuaLevelText.text="Nivel " + level.ToString();
-        actualExperienceText.text= "Xp: " + actualExperience.ToString();
+        actuaLevelText.text="" + level.ToString();
+        actualExperienceText.text= "" + actualExperience.ToString();
         animationsMain= FindObjectOfType<AnimationsMain>();
     }
 
@@ -319,7 +319,7 @@ public class GameController : MonoBehaviour
         {
             nextLvl=true;
             level=2;
-            actuaLevelText.text="Nivel " + level.ToString();
+            actuaLevelText.text="" + level.ToString();
             dialogosFarm.contador=21;
             dialogosFarm.SecuenciaDialogos();
             if(nextLvl==true)
@@ -334,7 +334,7 @@ public class GameController : MonoBehaviour
         {
             nextLvl= true;
             level=3;
-            actuaLevelText.text="Nivel " + level.ToString();
+            actuaLevelText.text="" + level.ToString();
             if(nextLvl==true)
             {
                 StartCoroutine(lvlFalse());
@@ -348,7 +348,7 @@ public class GameController : MonoBehaviour
 
     public void experienceSum()
     {
-        actualExperienceText.text="Xp:" + actualExperience.ToString();
+        actualExperienceText.text="" + actualExperience.ToString();
     }
 
     public IEnumerator lvlFalse()
