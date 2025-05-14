@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AnimalsController : MonoBehaviour
 {
-    public GameObject animal;
-
+   
     private bool firstAnimal = false;
     private AudioManager audioManager;
     private DialogosFarm dialogosFarm;
@@ -35,9 +34,10 @@ public class AnimalsController : MonoBehaviour
         if(!firstAnimal)
         {
             audioManager.ravenSound();
+            audioManager.arbustosPlay();
+            GameController.instance.spawnRaven();
             Vector2 positionSpawned = new Vector2 (-1.66f, -2.23f);
             yield return new WaitForSeconds(2);
-            Instantiate(animal, positionSpawned, Quaternion.identity);
             Debug.Log("AnimalEnCamino");
             firstAnimal= true;
             animalRob();
@@ -53,10 +53,12 @@ public class AnimalsController : MonoBehaviour
             Debug.Log(SpawnOn);
             if(SpawnOn == 0)
             {
+            GameController.instance.spawnRaven();
             audioManager.ravenSound();
-            Vector2 positionSpawned = new Vector2 (-2.55f, 1.13f);
+             audioManager.arbustosPlay();
+           
             yield return new WaitForSeconds(2);
-            Instantiate(animal, positionSpawned, Quaternion.identity);
+            
             Debug.Log("AnimalEnCamino");
             firstAnimal= true;
             animalRob();

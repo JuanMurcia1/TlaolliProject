@@ -7,11 +7,12 @@ public class AudioManager : MonoBehaviour
     public AudioClip cornHarvesting;
     public AudioClip cornPlanting;
     public AudioSource managerAudio;
+    public AudioSource arbustoOn;
     public AudioClip LogPick;
     public AudioClip buttonClick;
-
     public AudioClip raven;
     
+    public AudioClip arbustos;
    
     public void cornHarvest()
     {
@@ -44,6 +45,13 @@ public class AudioManager : MonoBehaviour
         managerAudio.loop= false;
         managerAudio.Play();
     
+    }
+
+    public void arbustosPlay()
+    {
+        arbustoOn.clip= arbustos;
+        arbustoOn.loop= false;
+        arbustoOn.Play();
     }
 
 

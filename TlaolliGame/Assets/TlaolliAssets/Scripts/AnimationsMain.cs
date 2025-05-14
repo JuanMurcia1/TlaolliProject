@@ -14,6 +14,8 @@ public class AnimationsMain : MonoBehaviour
     public Animation UiTextCorn;
     public Animation UiTextWood;
 
+    public Animation sumChest1;
+
    // public Animation wareHousePanel;
     public bool paso2= true;
     public BoxCollider2D boxPlanting;
@@ -99,6 +101,11 @@ public class AnimationsMain : MonoBehaviour
         yield return new WaitForSeconds(3);
         UiTextCorn.Play("TexFadedCorn");
         UiTextWood.Play("TextFadedWood");
+    }
+
+    public void sumPlay()
+    {
+        sumChest1.Play("+1_Sum");
     }
 
 }

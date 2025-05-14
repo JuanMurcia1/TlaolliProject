@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour
     private GameObject currentGhost;
 
     private bool isInBuildMode = false;
+
+    public GameObject aldeano;
 [SerializeField] private Vector3 originPosition = new Vector3(-4.82f, -5.33f, 0f);
 [Header("Restricciones")]
 public LayerMask blockedLayers;
@@ -52,13 +54,16 @@ void Update()
 
         SetGhostColor(isValid);
 
-        if (Input.GetMouseButtonDown(0) && isValid&& GameController.wood>10)
+        if (Input.GetMouseButtonDown(0) && isValid&& GameController.wood>=10)
         {
-            Instantiate(buildingPrefab, snappedPos, Quaternion.identity);
+            GameObject refugee =Instantiate(buildingPrefab, snappedPos, Quaternion.identity);
             GameController.wood-=10;
+            GameController.instance.UpdateWoodText();
             OccupyCell(gridPos);
             Destroy(currentGhost);
             isInBuildMode = false;
+            AldeanoMovement movimiento = aldeano.GetComponent<AldeanoMovement>();
+            movimiento.SetTarget(refugee.transform);
             
         }
     }

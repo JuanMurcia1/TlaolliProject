@@ -14,6 +14,10 @@ public class DialogosFarm : MonoBehaviour
 
     private TreeSpawner treeSpawner;
 
+    public AudioSource rainSound;
+
+    public AudioClip soundRain;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,7 @@ public class DialogosFarm : MonoBehaviour
         gameController= FindObjectOfType<GameController>();
         dayNightController= FindObjectOfType<DayNightController>();
         treeSpawner= FindObjectOfType<TreeSpawner>();
+        
     }
 
     // Update is called once per frame
@@ -134,9 +139,13 @@ public class DialogosFarm : MonoBehaviour
         }else if(contador==21)
         {
             animationsMain.panelDialogos();
+            gameController.aldeanoFirst.SetActive(true);
             dialogos.text="Perfecto, has alcanzado el nivel 2, y tal parece que nos visita alguien buscando refugio, rápido, construye una choza para tu visitante.";
             StartCoroutine(animationsMain.fadedUpPanel());
             gameController.chozaGenerateButton.SetActive(true);
+            StartCoroutine(gameController.rainStart());
+            soundRainPlay();
+            
         }
         
     }
@@ -153,5 +162,12 @@ public class DialogosFarm : MonoBehaviour
         yield return new WaitForSeconds(6);
         dialogos.text= "Y cuidado... no dejes mucho los cultivos afuera, hay animales cerca, interactua con la carreta para guardar tus cultivos";
         gameController.car.SetActive(true);  
+    }
+
+    public  void soundRainPlay(){
+        rainSound.clip= soundRain;
+        rainSound.Play();
+        rainSound.loop=true;
+
     }
 }

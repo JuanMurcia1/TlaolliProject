@@ -60,7 +60,16 @@ public class GameController : MonoBehaviour
 
     public GameObject congratsLvl;
 
-    public GameObject rain;
+    public GameObject textSum1;
+   
+
+    public ParticleSystem rain;
+
+    public AnimationsMain animationsMain;
+
+    public GameObject ravenObject;
+
+    public GameObject aldeanoFirst;
 
 
     void Awake()
@@ -85,9 +94,7 @@ public class GameController : MonoBehaviour
         treeSpawner= FindObjectOfType<TreeSpawner>();
         actuaLevelText.text="Nivel " + level.ToString();
         actualExperienceText.text= "Xp: " + actualExperience.ToString();
-        
-        
-        
+        animationsMain= FindObjectOfType<AnimationsMain>();
     }
 
     void Update()
@@ -351,6 +358,37 @@ public class GameController : MonoBehaviour
         nextLvl= false;
         congratsLvl.SetActive(false);
     }
+
+
+    public IEnumerator rainStart()
+    {
+        rain.Play();
+        yield return new WaitForSeconds(100);
+        rain.Stop();
+        dialogosFarm.rainSound.Stop();
+
+    }
+
+    public IEnumerator sumChest()
+    {
+        textSum1.SetActive(true);
+        animationsMain.sumPlay();
+        yield return new WaitForSeconds(0.5f);
+        textSum1.SetActive(false);
+        
+            
+    }
+
+    public void spawnRaven()
+    {
+        Vector2 positionSpawnRaven = new Vector2(-4.74f,1.16f);
+        Instantiate(ravenObject, positionSpawnRaven,Quaternion.identity);
+       
+
+    }
+    
+
+    
 
 
 
