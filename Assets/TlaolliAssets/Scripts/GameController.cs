@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
 
     public bool nextLvl= false;
     public DialogosFarm dialogosFarm;
+    public GridManager gridManager;
     public GameObject ButtonMenuMaterial;
     public GameObject menuMaterial;
     public GameObject choza;
@@ -88,13 +89,14 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        level=1;
+        level = 1;
         UpdateCosechadoText();
         dialogosFarm = FindObjectOfType<DialogosFarm>();
-        treeSpawner= FindObjectOfType<TreeSpawner>();
-        actuaLevelText.text="" + level.ToString();
-        actualExperienceText.text= "" + actualExperience.ToString();
-        animationsMain= FindObjectOfType<AnimationsMain>();
+        treeSpawner = FindObjectOfType<TreeSpawner>();
+        actuaLevelText.text = "" + level.ToString();
+        actualExperienceText.text = "" + actualExperience.ToString();
+        animationsMain = FindObjectOfType<AnimationsMain>();
+        gridManager = FindObjectOfType<GridManager>();
     }
 
     void Update()
@@ -247,17 +249,28 @@ public class GameController : MonoBehaviour
     }
     public void openMenuConstruccion()
     {
-        if(!menuConstruccionOpen)
+        if (!menuConstruccionOpen)
         {
             menuConstruccion.SetActive(true);
-            menuConstruccionOpen=true;
+            menuConstruccionOpen = true;
             menuMaterial.SetActive(false);
-            menuMaterialOpen= false;
-            
-        }else
+            menuMaterialOpen = false;
+
+
+        }
+        else
         {
             menuConstruccion.SetActive(false);
-            menuConstruccionOpen= false;
+            menuConstruccionOpen = false;
+            
+            gridManager.isInBuildMode = false;
+        if (gridManager.currentGhost != null)
+        {
+            Destroy(gridManager.currentGhost);
+        }
+
+
+
         }
     }
 
@@ -315,7 +328,7 @@ public class GameController : MonoBehaviour
     public void nextLevel()
     {
        
-        if(actualExperience>35 && level==1)
+        if(actualExperience>=30 && level==1)
         {
             nextLvl=true;
             level=2;
@@ -330,7 +343,7 @@ public class GameController : MonoBehaviour
             
 
 
-        }else if(actualExperience> 100 && level==2)
+        }else if(actualExperience>=100 && level==2)
         {
             nextLvl= true;
             level=3;

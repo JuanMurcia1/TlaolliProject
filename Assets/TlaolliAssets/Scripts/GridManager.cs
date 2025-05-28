@@ -12,9 +12,9 @@ public class GridManager : MonoBehaviour
     public GameObject buildingPrefab;
     public GameObject ghostPrefab;
 
-    private GameObject currentGhost;
+    public GameObject currentGhost;
 
-    private bool isInBuildMode = false;
+    public bool isInBuildMode = false;
 
     public GameObject aldeano;
 [SerializeField] private Vector3 originPosition = new Vector3(-4.82f, -5.33f, 0f);
@@ -80,7 +80,7 @@ void Update()
 }
 
 
-    // ✅ Activar modo construcción desde botón UI
+   
   public void ActivateBuildMode()
 {
     if (isInBuildMode)

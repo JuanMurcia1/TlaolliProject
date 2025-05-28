@@ -4,26 +4,27 @@ public class CameraDragController : MonoBehaviour
 {
     public float dragSpeed = 0.1f;
 
-    private Vector3 lastPosition;
-    private bool isDragging = false;
+    private Vector3 lastTouchPosition;
+    private bool isTouchDragging = false;
 
-    public Vector2 minPosition = new Vector2(-20, -10); // ajusta según tu mapa
-    public Vector2 maxPosition = new Vector2(20, 10);    // ajusta según tu mapa
-    
+    public Vector2 minPosition = new Vector2(-20, 0); // solo X se usa ahora
+    public Vector2 maxPosition = new Vector2(20, 0);
+
     private AnimationsMain animationsMain;
+    private float fixedZ; // guardará la posición Z inicial
 
     void Start()
     {
-        animationsMain= FindObjectOfType<AnimationsMain>();
+        animationsMain = FindObjectOfType<AnimationsMain>();
+        fixedZ = transform.position.z; // mantener Z fijo desde el inicio
     }
 
     void Update()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
+        if (animationsMain != null && animationsMain.isInventoryOpen) return;
+
         HandleMouseDrag();
-#elif UNITY_ANDROID || UNITY_IOS
         HandleTouchDrag();
-#endif
 
         ClampPosition();
     }
@@ -32,19 +33,19 @@ public class CameraDragController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            lastPosition = Input.mousePosition;
-            isDragging = true;
+            lastTouchPosition = Input.mousePosition;
+            isTouchDragging = true;
         }
-        else if (Input.GetMouseButton(0) && isDragging && animationsMain.isInventoryOpen==false)
+        else if (Input.GetMouseButton(0) && isTouchDragging)
         {
-            Vector3 delta = Input.mousePosition - lastPosition;
-            Vector3 move = new Vector3(-delta.x, 0, -delta.y) * dragSpeed * Time.deltaTime;
-            transform.Translate(move);
-            lastPosition = Input.mousePosition;
+            Vector3 delta = Input.mousePosition - lastTouchPosition;
+            float moveX = -delta.x * dragSpeed * Time.deltaTime;
+            transform.Translate(new Vector3(moveX, 0, 0), Space.World);
+            lastTouchPosition = Input.mousePosition;
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            isDragging = false;
+            isTouchDragging = false;
         }
     }
 
@@ -54,20 +55,30 @@ public class CameraDragController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Began)
             {
-                Vector2 delta = touch.deltaPosition;
-                Vector3 move = new Vector3(-delta.x, 0, -delta.y) * dragSpeed * Time.deltaTime;
-                transform.Translate(move);
+                lastTouchPosition = touch.position;
+                isTouchDragging = true;
+            }
+            else if (touch.phase == TouchPhase.Moved && isTouchDragging)
+            {
+                Vector2 delta = touch.position - (Vector2)lastTouchPosition;
+                float moveX = -delta.x * dragSpeed * Time.deltaTime;
+                transform.Translate(new Vector3(moveX, 0, 0), Space.World);
+                lastTouchPosition = touch.position;
+            }
+            else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+            {
+                isTouchDragging = false;
             }
         }
     }
 
     void ClampPosition()
     {
-        Vector3 clamped = transform.position;
-        clamped.x = Mathf.Clamp(clamped.x, minPosition.x, maxPosition.x);
-        clamped.y = Mathf.Clamp(clamped.y, minPosition.y, maxPosition.y);
-        transform.position = clamped;
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minPosition.x, maxPosition.x);
+        pos.z = fixedZ; // mantiene Z fijo
+        transform.position = pos;
     }
 }
